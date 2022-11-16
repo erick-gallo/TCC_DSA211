@@ -1,8 +1,8 @@
-#-=- Bibliotecas
+#-=- Bibliotecas utilizadas
 library(tidyverse)  #Manipulação de dados
 
 #-=- Leitura dos dados de treinamento
-base_treino_orig <- read.table("dados/train.csv", sep = ",", header = T, dec = ".")
+base_treino_orig <- read.table("dados/001_train.csv", sep = ",", header = T, dec = ".")
 
 #-=- Realiza uma análise no
 summary(base_treino_orig)
@@ -31,14 +31,13 @@ summary(base_treino_orig)
 #-=- Eliminado do modelo de treinamento linhas com valores nulos
 base_treino_tratada <- na.omit(base_treino_orig)
 
+base_treino_tratada$Sobreviveu[0==base_treino_tratada$Survived] <- "Não"
+base_treino_tratada$Sobreviveu[1==base_treino_tratada$Survived] <- "Sim"
+
+
 #-=- Eliminado do modelo colunas que não serão usadas na análise
-base_treino_tratada$PassengerId <- NULL
-base_treino_tratada$Name <- NULL
-base_treino_tratada$Cabin <- NULL
-base_treino_tratada$Ticket <- NULL
-base_treino_tratada$SibSp <- NULL
-base_treino_tratada$Parch <- NULL
-base_treino_tratada$Fare <- NULL
+base_treino_tratada <- base_treino_tratada %>% select(Pclass, Sex, Age, Embarked, Sobreviveu)
+
 
 #-=- Gravação da base tratada
-write.table(base_treino_tratada, file = "dados/base_treino_tratada.csv", sep = ",", dec = ".", quote=FALSE, row.names = FALSE)
+write.table(base_treino_tratada, file = "dados/001_base_treino_tratada.csv", sep = ",", dec = ".", quote=FALSE, row.names = FALSE)
