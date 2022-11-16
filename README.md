@@ -13,3 +13,6 @@ Importação da base de treinamento e execução de Data Wrangling
 -------------------------------
 Treinamento da base e geração do modelo
 
+003 - API.R
+-------------------------------
+Função desenvolvida em Plumber 
